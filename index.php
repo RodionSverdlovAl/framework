@@ -3,4 +3,4 @@ require "Fw/init.php";
 
 use Core\Config;
 
-$obj = new Config();
+print_r(Config::get("db/login"));
