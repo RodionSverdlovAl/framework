@@ -1,9 +1,11 @@
 <?php
 //класс для работы с настройками
 
-namespace Fw\Core\Config;
+namespace Core;
 
 class Config
 {
-
+    public function __construct(){
+        echo "</br>"."Work Config"."</br>";
+    }
 }
