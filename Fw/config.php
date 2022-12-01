@@ -6,4 +6,5 @@ return
         "login" => "rodion",
         "Pass" => "dfgdfgdf",
     ],
+    "templates" => "1"
 ];
