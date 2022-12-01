@@ -24,7 +24,7 @@ class Config
             return $data;
         }
         $group = explode("/", $path);
-        //var_dump($group);
+
         for ($i = 0; $i < count($group); $i++) {
             $data = $data[$group[$i]];
         }
