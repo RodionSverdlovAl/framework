@@ -17,7 +17,9 @@ if(!defined("CORE_CONNECTION")){
     die();
 }
 use Core\Application;
-$obj1 = Application::getInstance("key1");
-$obj2 = Application::getInstance("key2");
+use Core\InstanceContainer;
+$application = InstanceContainer::get(Application::class);
+$app2 = InstanceContainer::get(Application::class);
+$application->check();
 
 
