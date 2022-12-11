@@ -19,7 +19,5 @@ if(!defined("CORE_CONNECTION")){
 use Core\Application;
 use Core\InstanceContainer;
 $application = InstanceContainer::get(Application::class);
-$application::header();
-$application::footer();
 
 

@@ -14,10 +14,6 @@ trait Singleton
         return self::$instance;
     }
 
-    private function __construct()
-    {
-
-    } // закрываем конструктор
     private function __clone()
     {
 
