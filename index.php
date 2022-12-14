@@ -15,7 +15,16 @@ if (!empty($application)) {
     $application::$pager::addCss("templates/1/style2.css");
     $application::$pager::addCss("templates/1/style3.css");
     $application::$pager::addCss("templates/1/style.css");
+    $application::$pager::setProperty("title", "Мой сайт");
+    $application::$pager::getProperty("title");
+    $application::$pager::showProperty("jsArray");
+    $application::$pager::showProperty("title");
     $application::$pager::addJs("templates/1/script.js");
+    $application::$pager::addString('meta http-equiv="X-UA-Compatible" content="ie=edge"');
+    $application::$pager::addString('meta http-equiv="X-RA-Compatible" content="ie=edge"');
+    $application::$pager::addString('meta http-equiv="X-PA-Compatible" content="ie=edge"');
+    $application::$pager::showHead();
+
     $application::footer();
 }
 
