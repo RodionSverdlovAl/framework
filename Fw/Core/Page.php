@@ -5,15 +5,53 @@ namespace Core;
 class Page
 {
     use Singleton;
+    private static array $pagePropertiesArray = [
+      "jsArray" => [],
+      "cssArray" => [],
+      "strArray" => []
+    ];
+
 
     public static function addJs(string $src) //добавляет src в массив сохраняя уникальность
     {
-
+        if(!isset(self::$pagePropertiesArray["jsArray"])){
+            self::$pagePropertiesArray["jsArray"][] =$src;
+        }else{
+            // если массив не пустой тогда проходим по всем элементам и смотрим есть такой уже или нет
+            $flag = false;
+            foreach (self::$pagePropertiesArray["jsArray"] as $item){
+                if($item === $src){
+                    $flag = true;
+                }
+            }
+            if($flag === false){
+                self::$pagePropertiesArray["jsArray"][] = $src;
+            }
+        }
+        echo "<pre>";
+        print_r(self::$pagePropertiesArray);
+        echo "</pre>";
     }
 
     public static function addCss(string $link) //добавляет link сохраняя уникальность
     {
-
+        if(!isset(self::$pagePropertiesArray["cssArray"])){
+            self::$pagePropertiesArray["cssArray"][] =$link;
+        }else{
+            // если массив не пустой тогда проходим по всем элементам и смотрим есть такой уже или нет
+            $flag = false;
+            foreach (self::$pagePropertiesArray["cssArray"] as $item){
+                if($item === $link){
+                    $flag = true;
+                }
+            }
+            if($flag === false){
+                self::$pagePropertiesArray["cssArray"][] = $link;
+            }
+        }
+        echo "<pre>";
+        print_r(self::$pagePropertiesArray);
+        echo "</pre>";
     }
 
     public static function addString(string $str) // добавляет в массив для хранения

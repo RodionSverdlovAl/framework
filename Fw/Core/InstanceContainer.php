@@ -12,5 +12,4 @@ class InstanceContainer
         }
         return self::$instances[$class];
     }
-
 }

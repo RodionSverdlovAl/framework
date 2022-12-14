@@ -4,14 +4,14 @@ namespace Core;
 
 class Application
 {
-    private $pager = null; // будет объект класса
-    private $template = null; //будет объект класса
+    public static  $pager = null; // будет объект класса
+    private static $template = null; //будет объект класса
 
     use Singleton;
 
     function __construct()
     {
-        $this->pager = InstanceContainer::get(Page::class);
+        self::$pager = InstanceContainer::get(Page::class);
     }
 
     private static function startBuffer() : void
