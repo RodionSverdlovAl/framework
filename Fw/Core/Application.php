@@ -22,6 +22,7 @@ class Application
     {
         $content = ob_get_contents();
         ob_end_clean();
+        $content = self::$pager::getAllReplace($content);
         echo $content;
     }
 
