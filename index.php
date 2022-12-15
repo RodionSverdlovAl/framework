@@ -44,6 +44,7 @@ if (!empty($application)) {
     -------- 15 Декабря 2022 --------
     1) Закончил с классом Page";
     echo "</pre>";
+
     $application::footer();
 
     print_r(Config::get("db/login"));

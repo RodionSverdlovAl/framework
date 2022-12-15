@@ -15,17 +15,17 @@ class Page
     public static function addJs(string $src) //добавляет src в массив сохраняя уникальность
     {
         if (!isset(self::$pagePropertiesArray["jsArray"])) {
-            self::$pagePropertiesArray["jsArray"][] ="<script src=\"$src\"></script>";
+            self::$pagePropertiesArray["jsArray"][] ="<script src=".$src."></script>";
         } else {
             // если массив не пустой тогда проходим по всем элементам и смотрим есть такой уже или нет
             $flag = false;
             foreach (self::$pagePropertiesArray["jsArray"] as $item) {
-                if ($item === "<script src=\"$src\"></script>") {
+                if ($item === "<script src=".$src."></script>") {
                     $flag = true;
                 }
             }
             if ($flag === false) {
-                self::$pagePropertiesArray["jsArray"][] = "<script src=\"$src\"></script>";
+                self::$pagePropertiesArray["jsArray"][] = "<script src=".$src."></script>";
             }
         }
     }
@@ -87,11 +87,8 @@ class Page
     public static function getAllReplace($pageHTML) // получает массив макросов и значений для замены
     {
         foreach (self::$pagePropertiesArray as $id => $items) {
-            if (is_array($items)) {
-                $pageHTML = str_replace(self::getMacros($id), implode($items), $pageHTML);
-            } else {
-                $pageHTML = str_replace(self::getMacros($id), $items, $pageHTML);
-            }
+            is_array($items) ? $pageHTML = str_replace(self::getMacros($id), implode($items), $pageHTML)
+                : $pageHTML = str_replace(self::getMacros($id), $items, $pageHTML);
         }
         return $pageHTML;
     }
