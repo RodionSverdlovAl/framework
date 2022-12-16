@@ -2,16 +2,27 @@
 
 namespace Core;
 
+use Core\Type\Request;
+use Core\Type\Server;
+use Core\Type\Session;
+
 class Application
 {
     public static  $pager = null; // будет объект класса
     private static $template = null; //будет объект класса
+
+    private static $request = null;
+    private static $server = null;
+    private static $session = null;
 
     use Singleton;
 
     function __construct()
     {
         self::$pager = InstanceContainer::get(Page::class);
+        self::$request = InstanceContainer::get(Request::class);
+        self::$server = InstanceContainer::get(Server::class);
+        self::$session = InstanceContainer::get(Session::class);
     }
 
     private static function startBuffer() : void
