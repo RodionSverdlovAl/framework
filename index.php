@@ -13,17 +13,22 @@ if (!empty($application)) {
     $application::$pager::addCss("templates/1/style2.css");
     $application::$pager::addCss("templates/1/style3.css");
     $application::$pager::addCss("templates/1/style.css");
-
-    //$application::$pager::getProperty("title");
-    //$application::$pager::showProperty("jsArray");
-    //$application::$pager::showProperty("title");
+    $application::$pager::showProperty("jsArray");
     $application::$pager::addJs("templates/1/script.js");
     $application::$pager::addString('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">');
     $application::$pager::addString('<meta http-equiv="X-UA-Compatible" content="ie=edge">');
     $application::$pager::addString('<meta charset="UTF-8">');
-    //$application::$pager::showHead();
-
     $application::$pager::setProperty("title", "История изменений проекта");
+
+
+    //public static function includeComponent(string $component, string $template, array $params)
+    $application::includeComponent(
+        'fw:element.list', // неймспейс:компонент
+        'default', // шаблон
+        [ "sort" => "id", "limit" => 3, "show_title" => "N" ], // params
+        []
+    );
+
     echo "<pre>";
     echo "-------- 24 Ноября 2022 --------
     1) start progect
@@ -42,7 +47,10 @@ if (!empty($application)) {
     1) добавил функции addJs и addCss в класс Page
     2) добавил функции addString, setProperty, getProperty, showProperty,
     -------- 15 Декабря 2022 --------
-    1) Закончил с классом Page";
+    1) Закончил с классом Page
+    -------- 20 Декабря 2022 --------
+    1) Закончил 3 этап сделал Base Template DataBaseHandler и .class.php";
+
     echo "</pre>";
 
     $application::footer();

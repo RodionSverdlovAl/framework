@@ -8,7 +8,7 @@ use JsonSerializable;
 
 class Dictionary implements Iterator, ArrayAccess, Countable, JsonSerializable
 {
-    private $position =0;
+    private $position = 0;
     private $array = array();
     protected $count; // колличество эллементов объекта/массива
 
@@ -87,7 +87,7 @@ class Dictionary implements Iterator, ArrayAccess, Countable, JsonSerializable
 
     public function get($name)
     {
-        $this->offsetGet($name);
+        return $this->offsetGet($name);
     }
 
     public function set($name, $value)
