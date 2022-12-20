@@ -86,9 +86,16 @@ class Page
 
     public static function getAllReplace($pageHTML) // получает массив макросов и значений для замены
     {
-        foreach (self::$pagePropertiesArray as $id => $items) {
-            is_array($items) ? $pageHTML = str_replace(self::getMacros($id), implode($items), $pageHTML)
+        foreach (self::$pagePropertiesArray as $id => $items){
+            if(is_array($items)){
+                empty(self::$pagePropertiesArray["$id"]) ? $pageHTML = str_replace(self::getMacros($id), "", $pageHTML)
+                : $pageHTML = str_replace(self::getMacros($id), implode($items), $pageHTML);
+
+
+            } else {
+                empty(self::$pagePropertiesArray["$id"]) ? $pageHTML = str_replace(self::getMacros($id), "", $pageHTML)
                 : $pageHTML = str_replace(self::getMacros($id), $items, $pageHTML);
+            }
         }
         return $pageHTML;
     }
