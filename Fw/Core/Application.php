@@ -26,11 +26,11 @@ class Application
         self::$session = InstanceContainer::get(Session::class);
     }
 
-    private static function startBuffer() : void
+    private  function startBuffer() : void
     {
         ob_start();
     }
-    private static function endBuffer() : void
+    private function endBuffer() : void
     {
         $content = ob_get_contents();
         ob_end_clean();
@@ -38,30 +38,30 @@ class Application
         echo $content;
     }
 
-    public static function header() : void
+    public  function header() : void
     {
-        self::startBuffer();
+        $this->startBuffer();
         include 'Fw/templates/1/header.php';
     }
-    public static function footer() : void
+    public function footer() : void
     {
         include 'Fw/templates/1/footer.php';
-        self::endBuffer();
+        $this->endBuffer();
     }
 
-    private static array $componentClasses = []; // массив подключенных классов компонента
-    public static function includeComponent(string $component, string $template, array $params, array $content)
+    private array $componentClasses = []; // массив подключенных классов компонента
+    public function includeComponent(string $component, string $template, array $params)
     {
         $componentInfoArray = explode(':', $component);
         $namespace = $componentInfoArray[0];
         $component_id = $componentInfoArray[1];
         $path = "/components/" . str_replace(":","/",$component);
 
-        if(!isset(self::$componentClasses[$component])) {
+        if(!isset($this->componentClasses[$component])) {
             try {
                 $class = self::$server->get('DOCUMENT_ROOT') . "Fw" . $path . "/.class.php";
                 if(file_exists($class)){
-                    self::$componentClasses[$component] = self::makeCorrectClassName($component_id);
+                    $this->componentClasses[$component] = self::makeCorrectClassName($component_id);
                     include $class;
                 } else {
                     throw new Exception("Не удалось найти файл!");
@@ -70,18 +70,7 @@ class Application
                 echo $e . "</br>";
             }
         }
-
-        echo "<pre>";
-        echo print_r(self::$componentClasses, true);
-        echo "</pre>";
-
-        if($content != []) {
-            $result = $content;
-        } else {
-            $result = [];
-        }
-
-        $obj = new self::$componentClasses[$component]($result, $component_id, $template, $params, $path);
+        $obj = new $this->componentClasses[$component]($component_id, $template, $params, $path);
         $obj->executeComponent();
     }
 
