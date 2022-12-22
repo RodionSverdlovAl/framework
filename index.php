@@ -2,6 +2,14 @@
 require "Fw/init.php";
 
 use Core\Config;
+use Core\Validation\MinLength;
+use Core\Validation\InList;
+use Core\Validation\Chain;
+use Core\Validation\RegExp;
+use Core\Validation\Email;
+use Core\Validation\Phone;
+use Core\Validation\MaxLength;
+use Core\Validation\Number;
 
 if (!empty($application)) {
     $application->header();
@@ -116,8 +124,49 @@ if (!empty($application)) {
 
     echo "</pre>";
 
-    $application->footer();
 
+    $value = "php";
+    $arr = [1,4,6,3,2,5,3,7,4];
+    $lengthValidator = new MinLength(5);
+    echo "min lengthValidator str = " . $lengthValidator->validate($value); // return false, потому что $value
+    echo "min size validator array = " . $lengthValidator->validate($arr);
+
+    $maxLengthValidator = new MaxLength(5);
+    echo "max length validator str = " . $maxLengthValidator->validate($value);
+    echo "max length validator array = " . $maxLengthValidator->validate($arr);
+
+    $listValidator = new InList([
+        'php',
+        'class',
+        'oop',
+        'contract'
+    ]);
+    echo "list validator = ".$listValidator->validate($value);
+
+    $chain = new Chain([
+        (new MinLength(3)),
+        (new InList([
+            'php',
+            'class',
+            'oop',
+            'contract'
+        ]))
+    ]);
+    echo "Chain validator = ".$chain->validate($value);
+
+    $RegExpValidator = new RegExp('/(?=^.{6,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/');
+    echo "RegExpValidator = " .$RegExpValidator->validate('roddjdsb4345jhjGhjk56');
+
+    $EmailValidation = new Email();
+    echo "Email = ".$EmailValidation->validate("fghdfgh@mail.ru");
+
+    $PhoneValidator = new Phone();
+    echo "Phone = ".$PhoneValidator->validate('+12345678912');
+
+    $checkNumber = new Number();
+    echo " Number ? = " . $checkNumber->validate('2');
+
+    $application->footer();
     print_r(Config::get("db/login"));
 }
 
