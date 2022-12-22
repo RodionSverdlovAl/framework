@@ -1,6 +1,6 @@
 <?php
 
-class SelectComponent extends \Core\Component\Base
+class InputSelect extends \Core\Component\Base
 {
 
     public function executeComponent()

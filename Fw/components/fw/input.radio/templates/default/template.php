@@ -8,10 +8,12 @@ $params = $this->component->params;
 ?>
 <p><?=$params['title']?></p>
 <input
-    type="<?=$params["type"]?>"
+    type = "radio"
     name = "<?=$params["name"]?>"
+    class = "<?=$params['additional_class']?>"
+    placeholder="<?=$params['default']?>"
     <?php if(isset($params["attr"])) {
-        foreach ($params["attr"] as $key=>$value){
+        foreach ($params["attr"] as $key=>$value) {
             echo $key . "=". "$value ";
         }
     }?>

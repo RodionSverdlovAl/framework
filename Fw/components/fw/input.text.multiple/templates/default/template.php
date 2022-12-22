@@ -1,11 +1,10 @@
 <?php
 $params = $this->component->params;
-
-//echo "<pre>";
-//print_r($params);
-//echo "</pre>";
-
+use Core\InstanceContainer;
+use Core\Application;
+$app = InstanceContainer::get(Application::class);
 ?>
+
 <p><?=$params['title']?></p>
 <input
     type="<?=$params["type"]?>"
@@ -13,9 +12,10 @@ $params = $this->component->params;
     class = "<?=$params['additional_class']?>"
     placeholder="<?=$params['default']?>"
     <?php if(isset($params["attr"])) {
-        foreach ($params["attr"] as $key=>$value){
+        foreach ($params["attr"] as $key=>$value) {
             echo $key . "=". "$value ";
         }
     }?>
 >
 </br>
+<button onclick="foo()">Еще</button>
