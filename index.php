@@ -2,6 +2,14 @@
 require "Fw/init.php";
 
 use Core\Config;
+use Core\Validation\MinLength;
+use Core\Validation\InList;
+use Core\Validation\Chain;
+use Core\Validation\RegExp;
+use Core\Validation\Email;
+use Core\Validation\Phone;
+use Core\Validation\MaxLength;
+use Core\Validation\Number;
 
 if (!empty($application)) {
     $application->header();
@@ -10,11 +18,10 @@ if (!empty($application)) {
     $application::$pager::addCss("templates/1/style.css");
     $application::$pager::addJs("templates/1/script3.js");
     $application::$pager::addJs("templates/1/script4.js");
-    $application::$pager::addCss("templates/1/style2.css");
+    $application::$pager::addCss("https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css");
     $application::$pager::addCss("templates/1/style3.css");
     $application::$pager::addCss("templates/1/style.css");
-    $application::$pager::showProperty("jsArray");
-    $application::$pager::addJs("templates/1/script.js");
+    $application::$pager::addJs("https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js");
     $application::$pager::addString('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">');
     $application::$pager::addString('<meta http-equiv="X-UA-Compatible" content="ie=edge">');
     $application::$pager::addString('<meta charset="UTF-8">');
@@ -26,6 +33,68 @@ if (!empty($application)) {
         'fw:element.list', // неймспейс:компонент
         'default', // шаблон
         [ "sort" => "id", "limit" => 3, "show_title" => "N" ] // params
+    );
+    $application->includeComponent(
+        'fw:interface.form',
+        'default',
+        [
+            'additional_class' => 'window--full-form', //доп класс на контейнер
+            'attr' => [ // доп атрибуты
+                    'data-form-id' => 'form-123'
+            ],
+            'method' => 'post',
+            'action' => '', //url отправки
+            'elements' => [ //список элементов формы
+                [
+                    'type' => 'text',
+                    'name' => 'login',
+                    'additional_class' => 'js-login',
+                    'attr' => [
+                        'data-id' => '17'
+                    ],
+                    'title' => 'Логин',
+                    'default' => 'Введите имя'
+                ],
+                [
+                    'type' => 'password',
+                    'name' => 'password',
+                    'title' => 'пароль'
+                ],
+                [
+                    'type' => 'select',
+                    'name' => 'server',
+                    'additional_class' => 'js-login',
+                    'attr' => [
+                        'data-id' => '17'
+                    ],
+                    'title' => 'Выберите сервер',
+                    'list' => [
+                        [
+                            'title' => 'Онлайнер',
+                            'value' => 'onliner',
+                            'additional_class' => 'mini--option',
+                            'attr' => [
+                                'data-id' => '188'
+                            ],
+                            'selected' => true
+                        ],
+                        [
+                            'title' => 'Тутбай',
+                            'value' => 'tut',
+                        ]
+                    ]
+                ],
+                [
+                    'type' => 'checkbox',
+                    'name' => 'login',
+                    'additional_class' => 'js-login',
+                    'attr' => [
+                        'data-id' => '17'
+                    ],
+                    'title' => 'Логин'
+                ],
+            ]
+        ]
     );
 
     echo "<pre>";
@@ -54,8 +123,49 @@ if (!empty($application)) {
 
     echo "</pre>";
 
-    $application->footer();
 
+    $value = "php";
+    $arr = [1,4,6,3,2,5,3,7,4];
+    $lengthValidator = new MinLength(5);
+    echo "min lengthValidator str = " . $lengthValidator->validate($value); // return false, потому что $value
+    echo "min size validator array = " . $lengthValidator->validate($arr);
+
+    $maxLengthValidator = new MaxLength(5);
+    echo "max length validator str = " . $maxLengthValidator->validate($value);
+    echo "max length validator array = " . $maxLengthValidator->validate($arr);
+
+    $listValidator = new InList([
+        'php',
+        'class',
+        'oop',
+        'contract'
+    ]);
+    echo "list validator = ".$listValidator->validate($value);
+
+    $chain = new Chain([
+        (new MinLength(3)),
+        (new InList([
+            'php',
+            'class',
+            'oop',
+            'contract'
+        ]))
+    ]);
+    echo "Chain validator = ".$chain->validate($value);
+
+    $RegExpValidator = new RegExp('/(?=^.{6,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/');
+    echo "RegExpValidator = " .$RegExpValidator->validate('roddjdsb4345jhjGhjk56');
+
+    $EmailValidation = new Email();
+    echo "Email = ".$EmailValidation->validate("fghdfgh@mail.ru");
+
+    $PhoneValidator = new Phone();
+    echo "Phone = ".$PhoneValidator->validate('+12345678912');
+
+    $checkNumber = new Number();
+    echo " Number ? = " . $checkNumber->validate('2');
+
+    $application->footer();
     print_r(Config::get("db/login"));
 }
 
