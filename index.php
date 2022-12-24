@@ -21,7 +21,6 @@ if (!empty($application)) {
     $application::$pager::addCss("https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css");
     $application::$pager::addCss("templates/1/style3.css");
     $application::$pager::addCss("templates/1/style.css");
-    $application::$pager::showProperty("jsArray");
     $application::$pager::addJs("https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js");
     $application::$pager::addString('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">');
     $application::$pager::addString('<meta http-equiv="X-UA-Compatible" content="ie=edge">');

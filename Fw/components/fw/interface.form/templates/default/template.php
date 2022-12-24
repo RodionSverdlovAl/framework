@@ -35,6 +35,19 @@ $app = InstanceContainer::get(Application::class)
             ],
         );
         $app->includeComponent(
+            'fw:input.checkbox.multiple', // неймспейс:компонент
+            'default', // шаблон
+            [
+                'type' => 'checkbox',
+                'name' => 'login',
+                'additional_class' => 'js-login',
+                'attr' => [
+                    'data-id' => '17'
+                ],
+                'title' => 'Логин'
+            ],
+        );
+        $app->includeComponent(
             'fw:input.textarea', // неймспейс:компонент
             'default', // шаблон
             [
@@ -46,6 +59,34 @@ $app = InstanceContainer::get(Application::class)
                 ],
                 'title' => 'textarea',
                 'default' => 'Введите имя'
+            ],
+        );
+        $app->includeComponent(
+            'fw:input.select.multiple', // неймспейс:компонент
+            'default', // шаблон
+            [
+                'type' => 'select',
+                'name' => 'server',
+                'additional_class' => 'js-login',
+                'attr' => [
+                    'data-id' => '17'
+                ],
+                'title' => 'Выберите сервер',
+                'list' => [
+                    [
+                        'title' => 'Онлайнер',
+                        'value' => 'onliner',
+                        'additional_class' => 'mini--option',
+                        'attr' => [
+                            'data-id' => '188'
+                        ],
+                        'selected' => true
+                    ],
+                    [
+                        'title' => 'Тутбай',
+                        'value' => 'tut',
+                    ]
+                ]
             ],
         );
         ?>
